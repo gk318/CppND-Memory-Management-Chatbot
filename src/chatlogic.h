@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <memory>
+
 #include "chatgui.h"
 
 // forward declarations
@@ -17,8 +19,11 @@ private:
     ////
 
     // data handles (owned)
-    std::vector<GraphNode *> _nodes;
+    ///std::vector<GraphNode *> _nodes;
+    std::vector<std::shared_ptr<GraphNode>> _mNodes;
+
     std::vector<GraphEdge *> _edges;
+    std::shared_ptr<std::vector<GraphEdge>> _mEdges;
 
     ////
     //// EOF STUDENT CODE
