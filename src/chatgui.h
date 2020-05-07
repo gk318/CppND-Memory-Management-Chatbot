@@ -27,9 +27,9 @@ public:
     // constructor / destructor
     ChatBotPanelDialog(wxWindow *parent, wxWindowID id);
     ~ChatBotPanelDialog();
-
+    
     // getter / setter
-    std::unique_ptr<ChatLogic> GetChatLogicHandle() { std::move(_chatLogic); }
+    ChatLogic *GetChatLogicHandle() { return _chatLogic.get(); }
     // events
     void paintEvent(wxPaintEvent &evt);
     void paintNow();
