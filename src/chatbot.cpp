@@ -24,11 +24,49 @@ ChatBot::ChatBot(std::string filename)
     
     // invalidate data handles
     _chatLogic = nullptr;
-    _rootNode = nullptr;
+    _rootNode = nullptr; /// set from chatlogic
 
     // load image into heap memory
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
+
+ChatBot::ChatBot(const ChatBot &chatBot)
+{
+    std::cout<<"ChatBot Copy Constructor\n";
+    _chatLogic = chatBot._chatLogic;
+    _rootNode = chatBot._rootNode;
+}
+
+ChatBot &ChatBot::operator=(const ChatBot &chatBot)
+{
+    std::cout<<"ChatBot Copy Assignment Operator\n";
+    _chatLogic = chatBot._chatLogic;
+    _rootNode = chatBot._rootNode;
+    return *this;
+}
+
+ChatBot::ChatBot(ChatBot &&chatBot)
+{
+    std::cout<<"ChatBot Move Constructor\n";
+    _chatLogic = chatBot._chatLogic;
+    _rootNode = chatBot._rootNode;
+    _chatLogic = nullptr;
+    _rootNode = nullptr;
+}
+
+ChatBot &ChatBot::operator=(ChatBot &&chatBot)
+{
+    std::cout<<"ChatBot Move Assignment Operator\n";
+    if (this == &chatBot)
+        return *this;
+    _chatLogic = chatBot._chatLogic;
+    _rootNode = chatBot._rootNode;
+    _chatLogic = nullptr;
+    _rootNode = nullptr;
+    
+    return *this;
+}
+
 
 ChatBot::~ChatBot()
 {
