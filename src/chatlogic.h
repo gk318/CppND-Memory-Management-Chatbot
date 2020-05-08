@@ -23,7 +23,7 @@ private:
     std::vector<std::unique_ptr<GraphNode>> _mNodes;
 
     //std::vector<GraphEdge *> _edges;
-    std::vector<std::unique_ptr<GraphEdge>> _mEdges;
+    std::vector<std::shared_ptr<GraphEdge>> _mEdges;
 
     ////
     //// EOF STUDENT CODE
