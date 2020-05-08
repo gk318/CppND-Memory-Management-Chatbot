@@ -5,6 +5,7 @@
 #include <iterator>
 #include <tuple>
 #include <algorithm>
+#include <memory>
 
 #include "graphedge.h"
 #include "graphnode.h"
@@ -127,7 +128,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                         ////
 
                         // check if node with this ID exists already
-                        auto newNode = std::find_if( _mNodes.begin(), _mNodes.end(), [&id](std::shared_ptr<GraphNode> node) { return node->GetID() == id; });
+                        auto newNode = std::find_if( _mNodes.begin(), _mNodes.end(), [&id](const std::unique_ptr<GraphNode> &node) { return node->GetID() == id; });
 
                         // create new element if ID does not yet exist
                         if (newNode == _mNodes.end())
@@ -156,8 +157,8 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                         if (parentToken != tokens.end() && childToken != tokens.end())
                         {
                             // get iterator on incoming and outgoing node via ID search
-                            auto parentNode = std::find_if(_mNodes.begin(), _mNodes.end(), [&parentToken](std::shared_ptr<GraphNode> node) { return node->GetID() == std::stoi(parentToken->second); });
-                            auto childNode = std::find_if(_mNodes.begin(), _mNodes.end(), [&childToken](std::shared_ptr<GraphNode> node) { return node->GetID() == std::stoi(childToken->second); });
+                            auto parentNode = std::find_if(_mNodes.begin(), _mNodes.end(), [&parentToken](const std::unique_ptr<GraphNode> &node) { return node->GetID() == std::stoi(parentToken->second); });
+                            auto childNode = std::find_if(_mNodes.begin(), _mNodes.end(), [&childToken](const std::unique_ptr<GraphNode> &node) { return node->GetID() == std::stoi(childToken->second); });
 
                             // create new edge
                             GraphEdge *edge = new GraphEdge(id);
